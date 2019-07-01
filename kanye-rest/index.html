@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        .tabs {
+            border: 1px solid #cccccc;
+            width:100%
+        }
+        .tabs__sidebar {
+            flex-shrink: 0;
+            background: #cccccc;
+        }
+        .tabs__button{
+            padding: 10px;
+            background: #eeeeee;
+            broder: none;
+            width: 32%;
+            outline:none;
+            cursor: pointer;
+            border-bottom:1px solid #cccccc
+        }
+        .tabs__button:active{
+            background: #dddddd;
+        }
+        .current__tab{
+            background: #bbbbbb;
+        }
+
+
+
+        .fade-enter-active{
+            transition: opacity 4s;
+        }
+        .fade-enter, .fade-leave{
+            opacity: 0;
+        }
+        .jump-enter-active, .jump-leave-active {
+            animation: fade-jump .5s;
+        }
+        @keyframes fade-jump {
+            40%{
+                transform: scale(1.8)
+            }
+            75%{
+                transform: scale(1)
+            }
+            100%{
+                transform: scale(0)
+            }
+        }
+
+
+        .heart{
+            width:8%;
+            float:right
+        }
+
+        .tweet{
+        display: inline-block;
+        position: center;
+        font-family:Helvetica Neue, Roboto, Segoe UI, Calibri, sans-serif;
+        font-size: .75rem;
+        font-weight: bold;
+        line-height: 1rem;
+        border-color: #eee #ddd #bbb;
+        border-radius: .3125rem;
+        border-style: solid;
+        border-width: .0625rem;
+        box-shadow: 0 .0625rem .1875rem rgba(0, 0, 0, 0.15);
+        margin: .625rem .3125rem;
+        padding: 1rem 1rem 1rem 1rem;
+        max-width: 40%;
+    }
+    </style>
+
+    <title>Kanye Rest</title>
+    <div style="background-color:#38A1F3; height:10%; padding-top:1%; bottom-margin:1%; font-family:Helvetica Neue, Roboto, Segoe UI, Calibri, sans-serif">
+        <h1 style="color:white">Kanye Rest</h1>
+    </div>
+    <h3>Click on tweet to like it and move it to favorites, this will give you a new tweet!</h3>
+</head>
+<body>
+    <div id = "app">
+        <button v-if="quotes.length > 9" @click="refreshQuotes"><b>refresh tweets</b></button>
+        <br>
+        <br>
+        <div class = "tabs">
+            <div class = "tabs__sidebar">
+                <button v-if="quotes.length > 9" @click="unorderedQuotes" class = "tabs__button" v-bind:class="{ current__tab: !ordered&&!showLiked}"><b>Unordered Tweets</b></button>
+                <button v-if="quotes.length > 9" @click="sortQuotes" class = "tabs__button" v-bind:class="{current__tab: ordered&&!showLiked}"><b>Ordered Tweets</b></button>
+                <button v-if="quotes.length > 9" @click="changeShowLiked" class = "tabs__button" v-bind:class="{ current__tab: showLiked}"><b>Liked tweets ({{likedQuotes.length}})</b></button>
+            </div>
+        </div>
+        <hr>
+        <kanye-wisdom v-show="!showLiked" v-for="(quote,index) in quotes"  v-bind:index="index" ></kanye-wisdom>
+        <div v-show="showLiked">
+            <p v-if="likedQuotes.length === 0">You don't have any liked tweets, go to the unordered tweets or ordered tweets and a click a tweet</p>
+            <div v-else class="tweet" v-for="quote in likedQuotes">
+                <img src="images/red_heart.jpg" style="width:8%; float:right;">
+                <img src="images/kanye_profile_picture.jpg" style="width:10%; float:left; margin:8px">
+                <img src="images/correct.png" style="width:3%; margin:1px">
+                kanyewest<br>{{quote}}
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src = javascript/main.js> </script>
+</body>
+</html>
