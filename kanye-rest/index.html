@@ -96,7 +96,7 @@
         <hr>
         <kanye-wisdom v-show="!showLiked" v-for="(quote,index) in quotes"  v-bind:index="index" ></kanye-wisdom>
         <div v-show="showLiked">
-            <p v-if="likedQuotes.length === 0">You don't have any liked tweets, go to the unordered tweets or ordered tweets and a click a tweet</p>
+            <p v-if="likedQuotes.length === 0">You don't have any liked tweets, go to the unordered tweets or ordered tweets tabs and a click a tweet</p>
             <div v-else class="tweet" v-for="quote in likedQuotes">
                 <img src="images/red_heart.jpg" style="width:8%; float:right;">
                 <img src="images/kanye_profile_picture.jpg" style="width:10%; float:left; margin:8px">
